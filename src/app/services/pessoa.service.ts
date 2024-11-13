@@ -19,4 +19,17 @@ export class PessoaService {
         const pessoas = JSON.parse(json);
         return pessoas;
     }
+
+    edit(pessoa: Pessoa) {
+        const pessoas = this.listAll()
+        const index = pessoas.findIndex(p => p.email === pessoa.email);
+        if(index >= 0) {
+            pessoas[index] = pessoa
+        } else {
+            throw new Error(`Pessoa não existe com email ${pessoa.email}`)
+        }
+
+        const json = JSON.stringify(pessoas)
+        localStorage.setItem(KEY, json)
+    }
 }
