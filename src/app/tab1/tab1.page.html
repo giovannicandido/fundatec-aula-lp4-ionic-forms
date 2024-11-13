@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Formulário
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,38 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Formulário</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <form>
+    <ion-list>
+      <ion-item>
+        <ion-input label="Nome" placeholder="Nome"
+          label-placement="floating" fill="solid"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="Telefone" placeholder="Telefone"
+          label-placement="floating" fill="solid" type="tel"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="Email" placeholder="Email"
+          label-placement="floating" fill="solid" type="email"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select label="Hoobie" placeholder="Hoobie">
+          <ion-select-option>Nadar</ion-select-option>
+          <ion-select-option>Passear</ion-select-option>
+          <ion-select-option>Jogar Futebol</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-button>Salvar</ion-button>
+    </ion-item>
+  </form>
 </ion-content>
