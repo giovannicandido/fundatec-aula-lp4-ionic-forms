@@ -12,30 +12,31 @@
       <ion-title size="large">Formulário</ion-title>
     </ion-toolbar>
   </ion-header>
-  <form (ngSubmit)="salvar()">
+  <form [formGroup]="formGroup" (ngSubmit)="salvar()">
+    {{ msg }}
     <ion-list>
       <ion-item>
         <ion-input label="Nome" required placeholder="Nome"
           label-placement="floating" fill="solid"
-          name="nome" [(ngModel)]="pessoa.nome"
+          formControlName="nome"
         ></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-input label="Telefone" placeholder="Telefone"
           label-placement="floating" fill="solid" type="tel"
-          name="telefone" [(ngModel)]="pessoa.telefone"
+          formControlName="telefone"
         ></ion-input>
       </ion-item>
       
       <ion-item>
         <ion-input label="Email" placeholder="Email"
           label-placement="floating" fill="solid" type="email"
-          name="email" [(ngModel)]="pessoa.email"
+          formControlName="email"
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-select name="hoobie" [(ngModel)]="pessoa.hoobie" label="Hoobie" placeholder="Hoobie">
+        <ion-select formControlName="hoobie" label="Hoobie" placeholder="Hoobie">
           <ion-select-option>Nadar</ion-select-option>
           <ion-select-option>Passear</ion-select-option>
           <ion-select-option>Jogar Futebol</ion-select-option>
@@ -45,7 +46,7 @@
     <ion-item>
       <ion-button type="submit">Salvar</ion-button>
     </ion-item>
-    {{ pessoa | json }}
+    {{ formGroup.value | json }}
   </form>
  
 </ion-content>
