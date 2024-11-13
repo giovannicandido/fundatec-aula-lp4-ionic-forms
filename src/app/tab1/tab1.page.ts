@@ -12,6 +12,7 @@ import {
   IonToolbar
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { PessoaService } from '../services/pessoa.service';
 
 @Component({
   selector: 'app-tab1',
@@ -29,7 +30,7 @@ export class Tab1Page {
   msg = ""
   formGroup: FormGroup
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private pessoaService: PessoaService) {
     this.formGroup = formBuilder.group({
       nome: ['', Validators.required],
       telefone: ['', Validators.required],
@@ -42,6 +43,7 @@ export class Tab1Page {
     if(this.formGroup.valid) {
       console.log("Salvando....")
       console.log(this.formGroup.value)
+      this.pessoaService.save(this.formGroup.value)
       this.formGroup.reset()
       this.msg = ""
     } else {
