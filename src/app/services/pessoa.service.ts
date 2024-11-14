@@ -9,8 +9,7 @@ export class PessoaService {
     save(pessoa: Pessoa) {
         const pessoas = this.listAll()
         pessoas.push(pessoa)
-        const json = JSON.stringify(pessoas)
-        localStorage.setItem(KEY, json)
+        this.saveList(pessoas)
     }
 
     listAll(): Pessoa[] {
@@ -22,21 +21,19 @@ export class PessoaService {
 
     edit(pessoa: Pessoa, email: string) {
         const pessoas = this.listAll()
-        const index = pessoas.findIndex(p => p.email === email);
+        const index = this.findIndexByEmail(email)
         if(index >= 0) {
             pessoa.email = email
             pessoas[index] = pessoa
+            this.saveList(pessoas)
         } else {
             throw new Error(`Pessoa não existe com email ${pessoa.email}`)
         }
-
-        const json = JSON.stringify(pessoas)
-        localStorage.setItem(KEY, json)
     }
 
     findByEmail(email: string): Pessoa | null {
         const pessoas = this.listAll()
-        const index = pessoas.findIndex(p => p.email === email);
+        const index = this.findIndexByEmail(email)
         if(index >= 0) {
             return pessoas[index]
         } else {
@@ -45,13 +42,22 @@ export class PessoaService {
     }
 
     deleteByEmail(email: string) {
+        const index = this.findIndexByEmail(email)
         const pessoas = this.listAll()
-        const index = pessoas.findIndex(p => p.email === email);
         if(index >= 0) {
             pessoas.splice(index, 1)
-            const json = JSON.stringify(pessoas)
-            localStorage.setItem(KEY, json)
+            this.saveList(pessoas)
         }
 
+    }
+
+    private saveList(pessoas: Pessoa[]) {
+        const json = JSON.stringify(pessoas)
+        localStorage.setItem(KEY, json)
+    }
+
+    private findIndexByEmail(email: string) {
+        const pessoas = this.listAll()
+        return pessoas.findIndex(p => p.email === email);
     }
 }
