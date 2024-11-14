@@ -32,4 +32,14 @@ export class PessoaService {
         const json = JSON.stringify(pessoas)
         localStorage.setItem(KEY, json)
     }
+
+    findByEmail(email: string): Pessoa | null {
+        const pessoas = this.listAll()
+        const index = pessoas.findIndex(p => p.email === email);
+        if(index >= 0) {
+            return pessoas[index]
+        } else {
+            return null
+        }
+    }
 }

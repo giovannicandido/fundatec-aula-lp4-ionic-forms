@@ -9,10 +9,12 @@ import {
   IonSelect,
   IonSelectOption,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  ViewDidEnter
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { PessoaService } from '../services/pessoa.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -25,18 +27,37 @@ import { PessoaService } from '../services/pessoa.service';
     CommonModule
   ],
 })
-export class Tab1Page {
+export class Tab1Page implements ViewDidEnter {
+  editEmail: string | null = null
 
   msg = ""
   formGroup: FormGroup
 
-  constructor(private formBuilder: FormBuilder, private pessoaService: PessoaService) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private pessoaService: PessoaService,
+    private activedRouter: ActivatedRoute
+  ) {
     this.formGroup = formBuilder.group({
       nome: ['', Validators.required],
       telefone: ['', Validators.required],
       email: ['', Validators.email],
       hoobie: ['']
     })
+  }
+
+  ionViewDidEnter(): void {
+    this.editEmail = this.activedRouter.snapshot.paramMap.get("email")
+    this.load()
+  }
+
+  load() {
+    if(this.editEmail) {
+      const pessoa = this.pessoaService.findByEmail(this.editEmail)
+      if(pessoa) {
+        this.formGroup.setValue(pessoa)
+      }
+    }
   }
 
   salvar() {
