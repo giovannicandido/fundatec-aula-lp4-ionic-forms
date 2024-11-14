@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonContent, IonHeader, IonItem, IonList, IonTitle, IonToolbar, ViewDidEnter } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonItem, IonList, IonTitle, IonToolbar, ViewDidEnter, IonButton } from '@ionic/angular/standalone';
 import { Pessoa } from '../model/pessoa';
 import { PessoaService } from '../services/pessoa.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [IonItem, IonList, IonHeader, IonToolbar, IonTitle, IonContent,
+  imports: [IonButton, IonItem, IonList, IonHeader, IonToolbar, IonTitle, IonContent,
+    RouterModule,
     CommonModule
   ]
 })
