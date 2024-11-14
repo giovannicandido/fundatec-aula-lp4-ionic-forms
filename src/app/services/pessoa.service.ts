@@ -20,10 +20,11 @@ export class PessoaService {
         return pessoas;
     }
 
-    edit(pessoa: Pessoa) {
+    edit(pessoa: Pessoa, email: string) {
         const pessoas = this.listAll()
-        const index = pessoas.findIndex(p => p.email === pessoa.email);
+        const index = pessoas.findIndex(p => p.email === email);
         if(index >= 0) {
+            pessoa.email = email
             pessoas[index] = pessoa
         } else {
             throw new Error(`Pessoa não existe com email ${pessoa.email}`)

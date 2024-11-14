@@ -56,6 +56,7 @@ export class Tab1Page implements ViewDidEnter {
       const pessoa = this.pessoaService.findByEmail(this.editEmail)
       if(pessoa) {
         this.formGroup.setValue(pessoa)
+        this.formGroup.controls["email"].disable()
       }
     }
   }
@@ -64,7 +65,11 @@ export class Tab1Page implements ViewDidEnter {
     if(this.formGroup.valid) {
       console.log("Salvando....")
       console.log(this.formGroup.value)
-      this.pessoaService.save(this.formGroup.value)
+      if(this.editEmail) {
+        this.pessoaService.edit(this.formGroup.value, this.editEmail)
+      } else {
+        this.pessoaService.save(this.formGroup.value)
+      }
       this.formGroup.reset()
       this.msg = ""
     } else {
