@@ -43,4 +43,15 @@ export class PessoaService {
             return null
         }
     }
+
+    deleteByEmail(email: string) {
+        const pessoas = this.listAll()
+        const index = pessoas.findIndex(p => p.email === email);
+        if(index >= 0) {
+            pessoas.splice(index, 1)
+            const json = JSON.stringify(pessoas)
+            localStorage.setItem(KEY, json)
+        }
+
+    }
 }

@@ -16,16 +16,26 @@ import { RouterModule } from '@angular/router';
   ]
 })
 export class Tab2Page implements OnInit, ViewDidEnter {
+
   pessoas: Pessoa[] = []
-  constructor(private service: PessoaService) {}
-  
+  constructor(private service: PessoaService) { }
+
   ionViewDidEnter(): void {
-    this.pessoas = this.service.listAll()
     console.log("Ionic View Did Enter")
+    this.load()
   }
-  
+
   ngOnInit(): void {
     console.log("NG On Init")
+  }
+
+  deletar(email: string) {
+    this.service.deleteByEmail(email)
+    this.load()
+  }
+
+  load() {
+    this.pessoas = this.service.listAll()
   }
 
 }
